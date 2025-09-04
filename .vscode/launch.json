@@ -7,11 +7,7 @@
             "request": "attach",
             "hostName": "localhost",
             "port": 5005,
-            "sourcePaths": ["${workspaceFolder}/src/main/java"],
-            "projectName": "ExamplePlugin",
-            "preLaunchTask": "startMinecraftServer",
-            "timeout": 30000,
-            "retry": 3
+            "preLaunchTask": "buildAndDeploy"
         }
     ]
 }

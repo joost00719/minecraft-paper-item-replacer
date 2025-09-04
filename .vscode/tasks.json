@@ -2,18 +2,67 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "startMinecraftServer",
+            "label": "buildAndDeploy",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "buildPlugin",
+                "deployPlugin",
+                "startDockerCompose",
+                "waitForServer"
+            ]
+        },
+        {
+            "label": "buildPlugin",
             "type": "shell",
-            "command": "./launch-debug.sh",
+            "command": "docker",
+            "args": ["run", "--rm", "-v", "${workspaceFolder}:/workspace", "-w", "/workspace", "gradle:8.5-jdk17", "gradle", "shadowJar"],
             "group": "build",
             "presentation": {
                 "echo": true,
                 "reveal": "always",
                 "focus": false,
-                "panel": "new",
-                "close": false
+                "panel": "shared"
             },
             "problemMatcher": []
+        },
+        {
+            "label": "deployPlugin",
+            "type": "shell",
+            "command": "cp",
+            "args": ["build/libs/*.jar", "debug/plugins/plugin.jar"],
+            "dependsOn": "buildPlugin",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "startDockerCompose",
+            "type": "shell",
+            "command": "docker",
+            "args": ["compose", "up", "-d"],
+            "dependsOn": "deployPlugin",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "waitForServer",
+            "type": "shell",
+            "command": "sh",
+            "args": ["-c", "echo 'Waiting for server to start...' && sleep 10 && docker compose logs --tail=20 minecraft-server"],
+            "dependsOn": "startDockerCompose",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
         }
     ]
 }
