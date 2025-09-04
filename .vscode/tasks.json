@@ -1,0 +1,19 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "startMinecraftServer",
+            "type": "shell",
+            "command": "./launch-debug.sh",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new",
+                "close": false
+            },
+            "problemMatcher": []
+        }
+    ]
+}

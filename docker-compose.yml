@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  minecraft-server:
+    image: itzg/minecraft-server:latest
+    environment:
+      EULA: "TRUE"
+      TYPE: "PAPER"
+      VERSION: "1.21.8"
+      JVM_OPTS: "-Xmx2G -Xms1G -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+      DEBUG: "true"
+    ports:
+      - "25565:25565"  # Minecraft server port
+      - "5005:5005"    # Debug port
+    volumes:
+      - ./debug/plugins:/data/plugins
+      - ./debug/server-data:/data
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
