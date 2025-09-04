@@ -28,8 +28,8 @@
         {
             "label": "deployPlugin",
             "type": "shell",
-            "command": "cp",
-            "args": ["build/libs/*.jar", "debug/plugins/plugin.jar"],
+            "command": "powershell",
+            "args": ["-Command", "New-Item -ItemType Directory -Force -Path debug/plugins; Copy-Item build/libs/*.jar debug/plugins/plugin.jar"],
             "dependsOn": "buildPlugin",
             "presentation": {
                 "echo": true,
