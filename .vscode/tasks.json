@@ -15,7 +15,7 @@
             "label": "buildPlugin",
             "type": "shell",
             "command": "docker",
-            "args": ["run", "--rm", "-v", "${workspaceFolder}:/workspace", "-w", "/workspace", "gradle:8.5-jdk17", "gradle", "shadowJar"],
+            "args": ["run", "--rm", "-v", "${workspaceFolder}:/workspace", "-w", "/workspace", "gradle:8.11-jdk21", "gradle", "shadowJar"],
             "group": "build",
             "presentation": {
                 "echo": true,
